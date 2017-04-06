@@ -11,7 +11,37 @@ public class KeyInput extends KeyAdapter {
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		System.out.println(key);
+
+		// Code for handling input
+		for(GameObject obj : handler.object) {
+			if(obj.getId() == ID.PLAYER) {
+				Player player = (Player) obj;
+				int vel = 0;
+				if(obj.getVelX() != 0 && player.getCanMove()) {
+					vel = Math.abs(obj.getVelX());
+					if(key == 38) { /* Up arrow */
+						obj.setVelY(-vel);
+						obj.setVelX(0);
+						player.setCanMove(false);
+					} else if(key == 40) { /* Down arrow */
+						obj.setVelY(vel);
+						obj.setVelX(0);
+						player.setCanMove(false);
+					}
+				} else if (obj.getVelY() != 0 && player.getCanMove()) {
+					vel = Math.abs(obj.getVelY());
+					if(key == 39) { /* Right arrow */
+						obj.setVelX(vel);
+						obj.setVelY(0);
+						player.setCanMove(false);
+					} else if(key == 37) { /* Left arrow */
+						obj.setVelX(-vel);
+						obj.setVelY(0);
+						player.setCanMove(false);
+					}
+				}
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {

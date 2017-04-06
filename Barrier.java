@@ -14,7 +14,7 @@ public class Barrier extends GameObject {
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(Color.gray);
 		// Top barrier
 		g.fillRect(0, 0, Game.WIDTH, barrierWidth);
 		// Left barrier

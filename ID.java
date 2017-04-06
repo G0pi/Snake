@@ -1,3 +1,3 @@
 public enum ID {
-	PLAYER, ENEMY, WALL;
+	PLAYER, ENEMY, WALL, FOOD;
 }

@@ -44,7 +44,7 @@ public abstract class GameObject {
 	}
 
 	public int getVelX() {
-		return x;
+		return velX;
 	}
 
 	public void setVelY(int velY) {
@@ -52,6 +52,6 @@ public abstract class GameObject {
 	}
 
 	public int getVelY() {
-		return y;
+		return velY;
 	}
 }

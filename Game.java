@@ -2,10 +2,11 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
 
-	private static final long serialVersionUID = 2017_04_05_004L;
+	private static final long serialVersionUID = 2017_04_06_001L;
 
 	// Aspect ratio: HEIGHT = WIDTH / 16 * 9
 	public static final int WIDTH = 640, HEIGHT = WIDTH;
@@ -14,18 +15,18 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 
 	private Handler handler;
+	private Random random;
 
-	public static void main(String[] args) {
-		new Game();
-	}
 
 	public Game() {
 		handler = new Handler();
+		random = new Random();
 		this.addKeyListener(new KeyInput(handler));
 
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		
-		handler.addObject(new Player(16, 16));
+		// Objects
+		handler.addObject(new Player(16, 16, this));
 		handler.addObject(new Barrier());
 	}
 
@@ -34,7 +35,7 @@ public class Game extends Canvas implements Runnable {
 		long lastTime = System.nanoTime();
 		// ticks/s
 		// This will be kind of a difficulity slider in Snake
-		double amountOfTicks = 3.0;
+		double amountOfTicks = 10.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
@@ -87,6 +88,11 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 	}
 
+	public void gameOver() {
+		// TODO: Make better gameOver method, that doesn't just exit app
+		System.exit(0);
+	}
+
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
@@ -102,5 +108,11 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	
+	public static void main(String[] args) {
+		new Game();
+	}
+
+	public Handler getHandler() {
+		return handler;
+	}
 } 
